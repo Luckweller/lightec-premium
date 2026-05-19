@@ -70,7 +70,11 @@ const projectData = [
   { title: { ru: "Школа олимпийского резерва «Авангард»", en: "Avangard Olympic Reserve School" }, location: { ru: "ЯНАО", en: "Yamal-Nenets AO" }, category: { ru: "Шоу-освещение спортивного комплекса", en: "Dynamic LED show lighting" }, year: "2024", image: projectImages.avangard, pdfPage: 34 },
 ];
 
-const expertiseData = [
+const expertiseData: [
+  string,
+  { ru: string; en: string },
+  { ru: string; en: string }
+][] = [
   ["01", { ru: "Спортивное ядро", en: "Sports core" }, { ru: "Стадионы, арены, тренировочные поля и телевизионные световые сцены.", en: "Stadiums, arenas, training fields and television-ready lighting scenes." }],
   ["02", { ru: "Общественные зоны", en: "Public areas" }, { ru: "Трибуны, входные группы, зрительские зоны и безопасное движение.", en: "Concourses, entrances, spectator zones and safe movement scenarios." }],
   ["03", { ru: "Архитектурная оболочка", en: "Architectural skin" }, { ru: "Фасадная подсветка, динамические эффекты и медиа-свет.", en: "Facade lighting, dynamic effects and media-light identity." }],
@@ -82,7 +86,13 @@ const services = {
   en: ["Lighting concept", "Lighting calculations", "Visualisation", "Working documentation", "Equipment supply", "Installation & commissioning"],
 };
 
-function PremiumButton({ children, dark = false }) {
+function PremiumButton({
+  children,
+  dark = false,
+}: {
+  children: React.ReactNode;
+  dark?: boolean;
+}) {
   return (
     <button className={`group inline-flex items-center gap-4 rounded-full px-7 py-4 text-[11px] font-medium uppercase tracking-[0.22em] transition ${dark ? "bg-black text-white hover:bg-neutral-800" : "bg-white text-black hover:bg-[#d7ff4f]"}`}>
       {children}
