@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight, ChevronRight, Mail, MapPin, Menu, Phone, Play, Sparkles, X } from "lucide-react";
 
@@ -94,7 +94,7 @@ function PremiumButton({ children, dark = false }) {
 }
 
 export default function LaitecUltraPremium() {
-  const [lang, setLang] = useState("ru");
+  const [lang, setLang] = useState<"ru" | "en">("ru");
   const [menuOpen, setMenuOpen] = useState(false);
   const t = lang === "ru" ? RU : EN;
   const heroImage = useMemo(() => projectImages.gazprom, []);
