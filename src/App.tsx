@@ -125,7 +125,11 @@ const projectData = [
   },
 ];
 
-const expertiseData = [
+const expertiseData: [
+  string,
+  { ru: string; en: string },
+  { ru: string; en: string }
+][] = [
   ["01", { ru: "Спортивное ядро", en: "Sports core" }, { ru: "Стадионы, арены, тренировочные поля и телевизионные световые сцены.", en: "Stadiums, arenas, training fields and television-ready lighting scenes." }],
   ["02", { ru: "Общественные зоны", en: "Public areas" }, { ru: "Трибуны, входные группы, зрительские зоны и безопасное движение.", en: "Concourses, entrances, spectator zones and safe movement scenarios." }],
   ["03", { ru: "Архитектурная оболочка", en: "Architectural skin" }, { ru: "Фасадная подсветка, динамические эффекты и медиа-свет.", en: "Facade lighting, dynamic effects and media-light identity." }],
@@ -137,14 +141,24 @@ const services = {
   en: ["Lighting concept", "Lighting calculations", "Visualisation", "Working documentation", "Equipment supply", "Installation & commissioning"],
 };
 
-function PremiumButton({ children, dark = false, onClick }) {
+function PremiumButton({
+  children,
+  dark = false,
+  onClick,
+}: {
+  children: React.ReactNode;
+  dark?: boolean;
+  onClick?: () => void;
+}) {
   return (
     <motion.button
       onClick={onClick}
       whileHover={{ scale: 1.04, y: -2 }}
       whileTap={{ scale: 0.98 }}
       className={`group inline-flex items-center gap-4 rounded-full px-7 py-4 text-[11px] font-medium uppercase tracking-[0.22em] transition ${
-        dark ? "bg-black text-white hover:bg-neutral-800" : "bg-white text-black hover:bg-[#d7ff4f]"
+        dark
+          ? "bg-black text-white hover:bg-neutral-800"
+          : "bg-white text-black hover:bg-[#d7ff4f]"
       }`}
     >
       {children}
@@ -155,7 +169,15 @@ function PremiumButton({ children, dark = false, onClick }) {
   );
 }
 
-function ProjectModal({ project, lang, onClose }) {
+function ProjectModal({
+  project,
+  lang,
+  onClose,
+}: {
+  project: (typeof projectData)[number] | null;
+  lang: "ru" | "en";
+  onClose: () => void;
+}) {
   if (!project) return null;
 
   return (
@@ -218,9 +240,11 @@ export default function LaitecPremiumPreview() {
   const heroScale = useTransform(scrollY, [0, 800], [1, 1.12]);
   const heroOpacity = useTransform(scrollY, [0, 700], [1, 0.45]);
   const [cursor, setCursor] = useState({ x: 0, y: 0 });
-  const [lang, setLang] = useState("ru");
+  const [lang, setLang] = useState<"ru" | "en">("ru");
   const [menuOpen, setMenuOpen] = useState(false);
-  const [activeProject, setActiveProject] = useState(null);
+  const [activeProject, setActiveProject] = useState<
+  (typeof projectData)[number] | null
+>(null);
   const t = lang === "ru" ? RU : EN;
   const heroImage = useMemo(() => projectImages.gazprom, []);
   const navHref = ["#work", "#studio", "#expertise", "#contact"];
@@ -440,7 +464,7 @@ export default function LaitecPremiumPreview() {
             {projectData.map((project, index) => (
               <motion.article
                 whileHover={{ scale: 1 }}
-                whileHover={{ scale: 1 }}
+                
                 key={project.slug}
                 onClick={() => setActiveProject(project)}
                 className={`group ${index === projectData.length - 1 ? "relative" : "sticky top-0"} flex min-h-screen cursor-pointer items-end overflow-hidden border-t border-white/10 bg-black will-change-transform`}
